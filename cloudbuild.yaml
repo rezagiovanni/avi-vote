@@ -1,11 +1,11 @@
 steps:
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/$PROJECT_ID/avi-vote:$COMMIT_SHA", "."]
+    args: ["build", "-t", "gcr.io/$PROJECT_ID/avi-vote:latest", "."]
     env:
       - "CLOUDSDK_COMPUTE_ZONE=asia-southeast2"
       - "CLOUDSDK_COMPUTE_REGION=asia-southeast2"
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/$PROJECT_ID/avi-vote:$COMMIT_SHA"]
+    args: ["push", "gcr.io/$PROJECT_ID/avi-vote:latest"]
   - name: "gcr.io/google.com/cloudsdk/cloud-sdk"
     entrypoint: "gcloud"
     args:
@@ -13,7 +13,7 @@ steps:
         "run",
         "deploy",
         "avi-vote",
-        "--image=gcr.io/$PROJECT_ID/avi-vote:$COMMIT_SHA",
+        "--image=gcr.io/$PROJECT_ID/avi-vote:latest",
         "--region=asia-southeast2",
         "--platform=managed",
         "--allow-unauthenticated",
