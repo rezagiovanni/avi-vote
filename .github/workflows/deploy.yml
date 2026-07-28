@@ -1,0 +1,35 @@
+name: Deploy to Cloud Run
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - run: npm ci
+      - run: npm run build
+
+      - id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: "projects/1234567890/locations/global/workloadIdentityPools/avi-vote/providers/github"
+          service_account: "avi-vote-sa@data-gym-480909.iam.gserviceaccount.com"
+
+      - uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: avi-vote
+          region: asia-southeast2
+          project_id: data-gym-480909
+          source: .
