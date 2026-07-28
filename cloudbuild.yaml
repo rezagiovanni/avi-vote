@@ -16,6 +16,3 @@ steps:
         "--allow-unauthenticated",
         "--quiet",
       ]
-substitutions:
-  _REGISTRY: asia-southeast2-docker
-

@@ -8,7 +8,7 @@ export default async function handler(
   if (req.method !== "POST") return res.status(405).end();
 
   const { token } = req.body as { token?: string };
-  const clean = String(token || "").trim().toUpperCase();
+  const clean = String(token || "").trim().toLowerCase();
 
   if (!clean) return res.status(400).json({ error: "Token kosong" });
 
