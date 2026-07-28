@@ -97,7 +97,7 @@ export default function Confirm() {
             onClick={() => router.push("/vote/mpk")}
             className="mt-3 w-full rounded-xl border border-gray-200 bg-white py-3 text-sm font-medium text-gray-600 transition hover:bg-gray-50"
           >
-            ← Kembali ke Vote MPK
+            ← Kembali
           </button>
 
           <p className="mt-4 text-center text-xs text-gray-400">

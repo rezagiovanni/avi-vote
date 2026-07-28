@@ -12,8 +12,8 @@ export default async function handler(
   const mpk_vote = bodyMpk || req.cookies?.mpk_vote;
 
   const token = req.cookies?.voter_token;
-  if (!token) return res.status(401).json({ error: "Belum login" });
-  if (!osis_vote || !mpk_vote) return res.status(400).json({ error: "Pilihan belum lengkap" });
+  if (!token) return res.status(401).json({ error: "Belum login", debug: { tokenReceived: !!req.cookies?.voter_token, allCookies: req.cookies } });
+  if (!osis_vote || !mpk_vote) return res.status(400).json({ error: "Pilihan belum lengkap", debug: { osis_vote, mpk_vote, body: req.body } });
 
   try {
     const [rows] = await (bq.query({
@@ -27,11 +27,11 @@ export default async function handler(
     }) as Promise<any[]>);
 
     const updated = (rows as any[])[0];
-    if (!updated) return res.status(409).json({ error: "Token sudah pernah digunakan" });
+    if (!updated) return res.status(409).json({ error: "Token sudah pernah digunakan atau tidak ditemukan" });
 
     res.status(200).json({ ok: true });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Gagal menyimpan vote" });
+    console.error("Submit error:", err);
+    res.status(500).json({ error: "Gagal menyimpan vote: " + String(err) });
   }
 }

@@ -7,13 +7,15 @@ const OSIS_CANDIDATES = [
 
 export default function VoteOSIS() {
   return (
-    <CandidateCard
-      label="OSIS"
-      candidates={OSIS_CANDIDATES}
-      onSubmit={(id) => {
-        document.cookie = `osis_vote=${id}; path=/; max-age=900`;
-        window.location.href = "/vote/mpk";
-      }}
-    />
+    <div className="min-h-screen bg-dots px-4 py-10">
+      <CandidateCard
+        label="OSIS"
+        candidates={OSIS_CANDIDATES}
+        onSubmit={(id) => {
+          document.cookie = `osis_vote=${id}; path=/; max-age=900`;
+          window.location.href = "/vote/mpk";
+        }}
+      />
+    </div>
   );
 }

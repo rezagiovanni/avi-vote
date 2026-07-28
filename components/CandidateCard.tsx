@@ -12,7 +12,7 @@ type Props = {
 
 export default function CandidateCard({ label, candidates, onSubmit }: Props) {
   return (
-    <div className="min-h-screen bg-dots px-4 py-10">
+    <div className="bg-dots">
       <div className="mx-auto max-w-3xl">
         <div className="mb-8 text-center animate-slide-up">
           <div className="mx-auto mb-3 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-lg shadow-blue-100">
@@ -32,11 +32,13 @@ export default function CandidateCard({ label, candidates, onSubmit }: Props) {
               className="glass card-scale group relative overflow-hidden rounded-2xl p-6 text-left transition"
               style={{ animationDelay: `${idx * 0.1}s` }}
             >
-              {/* top accent bar */}
-              <div className={`absolute left-0 top-0 h-1.5 w-full bg-blue-500`} />
+              {/* accent bar */}
+              <div className={`absolute left-0 top-0 h-1.5 w-full ${idx === 0 ? "bg-blue-500" : "bg-yellow-500"}`} />
 
               {/* avatar */}
-              <div className="relative mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-blue-100 to-blue-200 text-xl font-bold text-blue-700 shadow-sm">
+              <div className={`relative mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br text-xl font-bold shadow-sm ${
+                idx === 0 ? "from-blue-100 to-blue-200 text-blue-700" : "from-yellow-100 to-yellow-200 text-yellow-700"
+              }`}>
                 {c.name.charAt(0)}
               </div>
 
@@ -45,7 +47,9 @@ export default function CandidateCard({ label, candidates, onSubmit }: Props) {
                 <p className="mt-1 text-sm text-gray-500">{c.visi}</p>
               </div>
 
-              <div className="relative mt-4 flex items-center gap-2 text-xs font-medium text-blue-600 opacity-0 transition group-hover:opacity-100">
+              <div className={`relative mt-4 flex items-center gap-2 text-xs font-medium transition group-hover:opacity-100 ${
+                idx === 0 ? "text-blue-600 opacity-0" : "text-yellow-600 opacity-0"
+              }`}>
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>

@@ -91,6 +91,11 @@ export default function Home() {
         <p className="mt-8 text-center text-xs text-gray-400">
           © {new Date().getFullYear()} Voting OSIS & MPK
         </p>
+        <div className="mt-4 text-center">
+          <a href="/admin" className="text-xs text-gray-400 underline hover:text-blue-600 transition">
+            Login Admin
+          </a>
+        </div>
       </div>
     </main>
   );
