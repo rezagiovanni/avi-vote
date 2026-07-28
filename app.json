@@ -1,6 +1,6 @@
 {
   "env": {
-    "BQ_DATASET": "avi-vote",
+    "BQ_DATASET": "avi_vote",
     "GOOGLE_CLOUD_PROJECT": "data-gym-480909",
     "ADMIN_POLL_INTERVAL_MS": "5000",
     "VOTING_MODE": "manual"
@@ -9,7 +9,7 @@
     "project": "data-gym-480909",
     "region": "asia-southeast2",
     "run": {
-      "service": "avi-vote",
+      "service": "avi_vote",
       "allow-unauthenticated": true
     }
   }

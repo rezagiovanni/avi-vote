@@ -1,6 +1,6 @@
-CREATE SCHEMA IF NOT EXISTS `avi-vote`;
+CREATE SCHEMA IF NOT EXISTS `avi_vote`;
 
-CREATE TABLE IF NOT EXISTS `avi-vote.voters` (
+CREATE TABLE IF NOT EXISTS `avi_vote.voters` (
   token STRING,
   nama STRING,
   kelas STRING,
@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `avi-vote.voters` (
   voted_at TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS `avi-vote.admin_tokens` (
+CREATE TABLE IF NOT EXISTS `avi_vote.admin_tokens` (
   token STRING,
   nama_walikelas STRING,
   kelas STRING
