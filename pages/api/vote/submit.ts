@@ -16,18 +16,24 @@ export default async function handler(
   if (!osis_vote || !mpk_vote) return res.status(400).json({ error: "Pilihan belum lengkap", debug: { osis_vote, mpk_vote, body: req.body } });
 
   try {
-    const [rows] = await (bq.query({
+    // BigQuery doesn't support RETURNING clause, so do check + update in two steps
+    const [checkRows] = await (bq.query({
+      query: `SELECT token, voted FROM \`${VOTERS_TABLE}\` WHERE token = @token`,
+      params: { token },
+    }) as Promise<any[]>);
+
+    const voter = (checkRows as any[])[0];
+    if (!voter) return res.status(404).json({ error: "Token tidak ditemukan" });
+    if (voter.voted) return res.status(409).json({ error: "Token sudah digunakan" });
+
+    await bq.query({
       query: `
         UPDATE \`${VOTERS_TABLE}\`
         SET osis_vote = @osis_vote, mpk_vote = @mpk_vote, voted = TRUE, voted_at = CURRENT_TIMESTAMP()
         WHERE token = @token AND voted = FALSE
-        RETURNING token
       `,
       params: { token, osis_vote, mpk_vote },
-    }) as Promise<any[]>);
-
-    const updated = (rows as any[])[0];
-    if (!updated) return res.status(409).json({ error: "Token sudah pernah digunakan atau tidak ditemukan" });
+    });
 
     res.status(200).json({ ok: true });
   } catch (err) {
