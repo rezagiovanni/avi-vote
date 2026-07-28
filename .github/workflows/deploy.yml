@@ -13,23 +13,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "npm"
-
-      - run: npm install --no-audit --no-fund
-      - run: npm run build
-
       - id: auth
         uses: google-github-actions/auth@v2
         with:
           workload_identity_provider: "projects/816891501188/locations/global/workloadIdentityPools/avi-vote-pool/providers/github-provider"
           service_account: "avi-vote@data-gym-480909.iam.gserviceaccount.com"
 
-      - uses: google-github-actions/deploy-cloudrun@v2
+      - id: build
+        uses: google-github-actions/deploy-cloudrun@v2
         with:
           service: avi-vote
           region: asia-southeast2
           project_id: data-gym-480909
           source: .
+          image: gcr.io/data-gym-480909/avi-vote:${{ github.sha }}
+          build_type: dockerfile
+          dockerfile: Dockerfile
