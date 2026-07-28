@@ -25,7 +25,6 @@ export default async function handler(
     const [rows] = await (bq.query({
       query: `SELECT token, nama, voted, osis_vote, mpk_vote FROM \`${VOTERS_TABLE}\` WHERE kelas = @kelas ORDER BY nama`,
       params: { kelas },
-      type: "text" as any,
     }) as Promise<any[]>);
 
     const voters = (rows as any[]).map((r) => ({

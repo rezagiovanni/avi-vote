@@ -16,7 +16,6 @@ export default async function handler(
     const [adminRows] = await (bq.query({
       query: `SELECT token, kelas, nama_walikelas FROM \`${ADMIN_TABLE}\` WHERE token = @token`,
       params: { token: clean },
-      type: "text" as any,
     }) as Promise<any[]>);
 
     const admin = (adminRows as any[])[0];

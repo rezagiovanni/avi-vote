@@ -22,7 +22,6 @@ export default async function handler(
         RETURNING token
       `,
       params: { token, osis_vote, mpk_vote },
-      type: "text" as any,
     }) as Promise<any[]>);
 
     const updated = (rows as any[])[0];

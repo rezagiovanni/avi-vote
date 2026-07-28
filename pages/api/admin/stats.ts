@@ -36,7 +36,6 @@ export default async function handler(
         WHERE kelas = @kelas
       `,
       params: { kelas },
-      type: "text" as any,
     }) as Promise<any[]>);
 
     const agg = (rows as any[])[0];
