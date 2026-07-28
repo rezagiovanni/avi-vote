@@ -1,21 +1,21 @@
 steps:
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/$PROJECT_ID/avi-vote:latest", "."]
-    env:
-      - "CLOUDSDK_COMPUTE_ZONE=asia-southeast2"
-      - "CLOUDSDK_COMPUTE_REGION=asia-southeast2"
+    args: ["build", "-t", "asia-southeast2-docker.pkg.dev/$PROJECT_ID/avi-vote/avi-vote:latest", "."]
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/$PROJECT_ID/avi-vote:latest"]
-  - name: "gcr.io/google.com/cloudsdk/cloud-sdk"
+    args: ["push", "asia-southeast2-docker.pkg.dev/$PROJECT_ID/avi-vote/avi-vote:latest"]
+  - name: "gcr.io/cloud-builders/gcloud"
     entrypoint: "gcloud"
     args:
       [
         "run",
         "deploy",
         "avi-vote",
-        "--image=gcr.io/$PROJECT_ID/avi-vote:latest",
+        "--image=asia-southeast2-docker.pkg.dev/$PROJECT_ID/avi-vote/avi-vote:latest",
         "--region=asia-southeast2",
         "--platform=managed",
         "--allow-unauthenticated",
-        "--quiet"
+        "--quiet",
       ]
+substitutions:
+  _REGISTRY: asia-southeast2-docker
+
