@@ -18,14 +18,14 @@ jobs:
           node-version: 20
           cache: "npm"
 
-      - run: npm ci
+      - run: npm install --no-audit --no-fund
       - run: npm run build
 
       - id: auth
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: "projects/1234567890/locations/global/workloadIdentityPools/avi-vote/providers/github"
-          service_account: "avi-vote-sa@data-gym-480909.iam.gserviceaccount.com"
+          workload_identity_provider: "projects/816891501188/locations/global/workloadIdentityPools/avi-vote-pool/providers/github-provider"
+          service_account: "avi-vote@data-gym-480909.iam.gserviceaccount.com"
 
       - uses: google-github-actions/deploy-cloudrun@v2
         with:
