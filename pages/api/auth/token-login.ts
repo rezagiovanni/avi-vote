@@ -13,11 +13,11 @@ export default async function handler(
   if (!clean) return res.status(400).json({ error: "Token kosong" });
 
   try {
-    const [rows] = await bq.query({
+    const [rows] = await (bq.query({
       query: `SELECT token, nama, kelas, voted FROM \`${VOTERS_TABLE}\` WHERE token = @token`,
       params: { token: clean },
       type: "text" as any,
-    });
+    }) as Promise<any[]>);
 
     const voter = (rows as any[])[0];
     if (!voter) return res.status(401).json({ error: "Token tidak ditemukan" });

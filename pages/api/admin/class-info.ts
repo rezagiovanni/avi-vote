@@ -11,11 +11,11 @@ export default async function handler(
   if (!adminToken) return res.status(401).json({ error: "Belum login sebagai admin" });
 
   try {
-    const [adminRows] = await bq.query({
+    const [adminRows] = await (bq.query({
       query: `SELECT token, kelas FROM \`${ADMIN_TABLE}\` WHERE token = @token`,
       params: { token: adminToken },
       type: "text" as any,
-    });
+    }) as Promise<any[]>);
 
     const admin = (adminRows as any[])[0];
     if (!admin) return res.status(401).json({ error: "Token admin tidak valid" });

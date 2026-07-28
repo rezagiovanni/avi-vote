@@ -22,7 +22,7 @@ export default async function handler(
 
     const kelas = admin.kelas;
 
-    const [aggRows] = await bq.query({
+    const [rows] = await (bq.query({
       query: `
         SELECT
           COUNT(*) AS total_token,
@@ -37,9 +37,9 @@ export default async function handler(
       `,
       params: { kelas },
       type: "text" as any,
-    });
+    }) as Promise<any[]>);
 
-    const agg = (aggRows as any[])[0];
+    const agg = (rows as any[])[0];
 
     res.status(200).json({
       kelas,
