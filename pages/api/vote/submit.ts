@@ -7,7 +7,8 @@ export default async function handler(
 ) {
   if (req.method !== "POST") return res.status(405).end();
 
-  const { osis_vote, mpk_vote } = req.body as { osis_vote?: string; mpk_vote?: string };
+  const osis_vote = req.cookies?.osis_vote;
+  const mpk_vote = req.cookies?.mpk_vote;
 
   const token = req.cookies?.voter_token;
   if (!token) return res.status(401).json({ error: "Belum login" });
