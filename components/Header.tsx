@@ -6,7 +6,7 @@ export default function Header({ active }: { active: "profile" | "vote" }) {
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3">
         <Link href="/profile" className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-yellow-500 text-[10px] font-bold text-white">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-[10px] font-bold text-white">
             AL
           </div>
           <span className="hidden sm:inline">Avicenna Voting</span>
@@ -27,7 +27,7 @@ export default function Header({ active }: { active: "profile" | "vote" }) {
             href="/vote/osis"
             className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
               active === "vote"
-                ? "bg-gradient-to-r from-blue-600 to-yellow-500 text-white shadow-sm"
+                ? "bg-blue-600 text-white shadow-sm"
                 : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
             }`}
           >

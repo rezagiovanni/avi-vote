@@ -33,10 +33,10 @@ export default function CandidateCard({ label, candidates, onSubmit }: Props) {
               style={{ animationDelay: `${idx * 0.1}s` }}
             >
               {/* top accent bar */}
-              <div className={`absolute left-0 top-0 h-1.5 w-full ${idx === 0 ? "bg-blue-500" : "bg-yellow-500"}`} />
+              <div className={`absolute left-0 top-0 h-1.5 w-full bg-blue-500`} />
 
               {/* avatar */}
-              <div className="relative mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-blue-100 to-yellow-100 text-xl font-bold text-blue-700 shadow-sm">
+              <div className="relative mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-blue-100 to-blue-200 text-xl font-bold text-blue-700 shadow-sm">
                 {c.name.charAt(0)}
               </div>
 

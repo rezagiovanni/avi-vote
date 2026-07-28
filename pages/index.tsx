@@ -81,7 +81,7 @@ export default function Home() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-yellow-500 py-3 text-sm font-semibold text-white shadow-lg transition hover:from-blue-700 hover:to-yellow-600 hover:shadow-blue-200/50 disabled:opacity-60"
+              className="w-full rounded-xl bg-blue-600 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-700 hover:shadow-blue-200/50 disabled:opacity-60"
             >
               {loading ? "Memproses..." : "Masuk"}
             </button>
