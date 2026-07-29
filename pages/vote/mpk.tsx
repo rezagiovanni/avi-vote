@@ -35,7 +35,7 @@ export default function VoteMPK() {
 
 function HexLogo() {
   return (
-    <svg viewBox="0 0 56 56" className="h-96 w-96">
+    <svg viewBox="0 0 56 56" className="h-[40rem] w-[40rem]">
       <polygon points="28,2 50,14 50,42 28,54 6,42 6,14" fill="none" stroke="#0051a8" strokeWidth="4" />
       <polygon points="28,6 47,16 47,40 28,50 9,40 9,16" fill="none" stroke="#f5a623" strokeWidth="3" />
       <rect x="15" y="32" width="6" height="12" fill="#00a651" rx="1" />
