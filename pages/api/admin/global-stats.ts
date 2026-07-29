@@ -31,7 +31,9 @@ export default async function handler(
           COUNTIF(voted) AS voted,
           COUNTIF(NOT voted) AS belum,
           COUNTIF(osis_vote = 'osis_a') AS osis_a,
-          COUNTIF(osis_vote = 'osis_b') AS osis_b
+          COUNTIF(osis_vote = 'osis_b') AS osis_b,
+          COUNTIF(mpk_vote = 'mpk_a') AS mpk_a,
+          COUNTIF(mpk_vote = 'mpk_b') AS mpk_b
         FROM \`${VOTERS_TABLE}\`
         GROUP BY kelas
         ORDER BY kelas
@@ -53,6 +55,8 @@ export default async function handler(
         belum: Number(r.belum || 0),
         osis_a: Number(r.osis_a || 0),
         osis_b: Number(r.osis_b || 0),
+        mpk_a: Number(r.mpk_a || 0),
+        mpk_b: Number(r.mpk_b || 0),
       })),
     });
   } catch (err) {

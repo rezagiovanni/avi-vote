@@ -16,6 +16,8 @@ type PerKelas = {
   belum: number;
   osis_a: number;
   osis_b: number;
+  mpk_a: number;
+  mpk_b: number;
 };
 
 export default function Admin() {
@@ -208,32 +210,46 @@ export default function Admin() {
                         <th className="px-5 py-3 font-medium">Kelas</th>
                         <th className="px-5 py-3 font-medium">Total</th>
                         <th className="px-5 py-3 font-medium">Sudah Vote</th>
+                        <th className="px-5 py-3 font-medium">Sudah %</th>
                         <th className="px-5 py-3 font-medium">Belum</th>
+                        <th className="px-5 py-3 font-medium">Belum %</th>
                         <th className="px-5 py-3 font-medium">OSIS A</th>
+                        <th className="px-5 py-3 font-medium">OSIS A %</th>
                         <th className="px-5 py-3 font-medium">OSIS B</th>
-                        <th className="px-5 py-3 font-medium">Partisipasi</th>
+                        <th className="px-5 py-3 font-medium">OSIS B %</th>
+                        <th className="px-5 py-3 font-medium">MPK A</th>
+                        <th className="px-5 py-3 font-medium">MPK A %</th>
+                        <th className="px-5 py-3 font-medium">MPK B</th>
+                        <th className="px-5 py-3 font-medium">MPK B %</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {perKelas.map((k, i) => (
+                      {perKelas.map((k, i) => {
+                        const votedPct = k.total ? Math.round((k.voted / k.total) * 100) : 0;
+                        const belumPct = k.total ? Math.round((k.belum / k.total) * 100) : 0;
+                        const osisAPct = k.voted ? Math.round((k.osis_a / k.voted) * 100) : 0;
+                        const osisBPct = k.voted ? Math.round((k.osis_b / k.voted) * 100) : 0;
+                        const mpkAPct = k.voted ? Math.round((k.mpk_a / k.voted) * 100) : 0;
+                        const mpkBPct = k.voted ? Math.round((k.mpk_b / k.voted) * 100) : 0;
+                        return (
                         <tr key={k.kelas} className={`${i % 2 === 0 ? "" : "bg-gray-50/50"} hover:bg-blue-50/50`}>
                           <td className="px-5 py-3 font-semibold text-gray-800">{k.kelas}</td>
                           <td className="px-5 py-3 text-gray-600">{k.total}</td>
-                          <td className="px-5 py-3 text-green-600 font-medium">{k.voted}</td>
+                          <td className="px-5 py-3 font-medium text-green-600">{k.voted}</td>
+                          <td className="px-5 py-3 text-gray-500">{votedPct}%</td>
                           <td className="px-5 py-3 text-yellow-600">{k.belum}</td>
+                          <td className="px-5 py-3 text-gray-500">{belumPct}%</td>
                           <td className="px-5 py-3 text-blue-600">{k.osis_a}</td>
+                          <td className="px-5 py-3 text-blue-400">{osisAPct}%</td>
                           <td className="px-5 py-3 text-yellow-600">{k.osis_b}</td>
-                          <td className="px-5 py-3">
-                            <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                              (k.voted / (k.total || 1)) >= 0.75 ? "bg-green-100 text-green-700" :
-                              (k.voted / (k.total || 1)) >= 0.5 ? "bg-yellow-100 text-yellow-700" :
-                              "bg-red-100 text-red-700"
-                            }`}>
-                              {Math.round((k.voted / (k.total || 1)) * 100)}%
-                            </span>
-                          </td>
+                          <td className="px-5 py-3 text-yellow-500">{osisBPct}%</td>
+                          <td className="px-5 py-3 text-purple-600">{k.mpk_a}</td>
+                          <td className="px-5 py-3 text-purple-400">{mpkAPct}%</td>
+                          <td className="px-5 py-3 text-orange-600">{k.mpk_b}</td>
+                          <td className="px-5 py-3 text-orange-400">{mpkBPct}%</td>
                         </tr>
-                      ))}
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>
