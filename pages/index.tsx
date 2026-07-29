@@ -19,27 +19,34 @@ export default function Home() {
     });
 
     if (res.ok) {
-      router.push("/vote/osis");
+      router.push("/profile");
     } else {
       const data = await res.json();
-      setError(data.error || "Login gagal");
+      // custom message for already voted tokens
+      if (data.error === "Token sudah digunakan") {
+        setError("Mohon maaf, Anda tidak bisa masuk karena sudah melakukan voting.");
+      } else {
+        setError(data.error || "Login gagal");
+      }
       setLoading(false);
     }
   }
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-dots px-4">
+      {/* backdrop Avicenna logo */}
+      <div className="pointer-events-none fixed inset-0 flex items-center justify-center opacity-[0.05]">
+        <HexLogo />
+      </div>
+
       {/* decorative */}
       <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 animate-float rounded-full bg-blue-100/60 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-32 -left-32 h-96 w-96 animate-pulse-soft rounded-full bg-yellow-100/60 blur-3xl" />
-      <div className="pointer-events-none absolute left-1/3 top-1/3 h-48 w-48 animate-float rounded-full bg-green-100/50 blur-3xl" style={{ animationDelay: "-2s" }} />
 
       <div className="relative z-10 w-full max-w-md">
         <div className="mb-8 text-center animate-slide-up">
-          {/* School Logo placeholder */}
           <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-white shadow-lg shadow-blue-100">
             <div className="relative h-14 w-14">
-              {/* hexagon bar-chart logo */}
               <svg viewBox="0 0 56 56" className="h-14 w-14">
                 <polygon points="28,2 50,14 50,42 28,54 6,42 6,14" fill="none" stroke="#0051a8" strokeWidth="3" />
                 <polygon points="28,6 47,16 47,40 28,50 9,40 9,16" fill="none" stroke="#f5a623" strokeWidth="2" />
@@ -66,6 +73,7 @@ export default function Home() {
             <div>
               <label className="mb-1 block text-xs font-medium text-gray-500">Token Voting</label>
               <input
+                type="password"
                 value={token}
                 onChange={(e) => setToken(e.target.value)}
                 required
@@ -98,5 +106,18 @@ export default function Home() {
         </div>
       </div>
     </main>
+  );
+}
+
+function HexLogo() {
+  return (
+    <svg viewBox="0 0 56 56" className="h-96 w-96">
+      <polygon points="28,2 50,14 50,42 28,54 6,42 6,14" fill="none" stroke="#0051a8" strokeWidth="4" />
+      <polygon points="28,6 47,16 47,40 28,50 9,40 9,16" fill="none" stroke="#f5a623" strokeWidth="3" />
+      <rect x="15" y="32" width="6" height="12" fill="#00a651" rx="1" />
+      <rect x="23" y="24" width="6" height="20" fill="#e53935" rx="1" />
+      <rect x="31" y="18" width="6" height="26" fill="#0051a8" rx="1" />
+      <rect x="39" y="12" width="6" height="32" fill="#f5a623" rx="1" />
+    </svg>
   );
 }
