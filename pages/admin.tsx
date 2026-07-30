@@ -391,14 +391,5 @@ function ClockIcon() { return <svg className="h-5 w-5" fill="none" viewBox="0 0 
 function ChartIcon() { return <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg>; }
 
 function HexLogo() {
-  return (
-    <svg viewBox="0 0 56 56" className="h-[40rem] w-[40rem]">
-      <polygon points="28,2 50,14 50,42 28,54 6,42 6,14" fill="none" stroke="#0051a8" strokeWidth="4" />
-      <polygon points="28,6 47,16 47,40 28,50 9,40 9,16" fill="none" stroke="#f5a623" strokeWidth="3" />
-      <rect x="15" y="32" width="6" height="12" fill="#00a651" rx="1" />
-      <rect x="23" y="24" width="6" height="20" fill="#e53935" rx="1" />
-      <rect x="31" y="18" width="6" height="26" fill="#0051a8" rx="1" />
-      <rect x="39" y="12" width="6" height="32" fill="#f5a623" rx="1" />
-    </svg>
-  );
+  return <img src="/logo-avicenna.png" alt="Avicenna" className="h-[40rem] w-[40rem] object-contain" />;
 }

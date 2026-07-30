@@ -6,9 +6,7 @@ export default function Header({ active }: { active: "profile" | "vote" }) {
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3">
         <Link href="/profile" className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-[10px] font-bold text-white">
-            AL
-          </div>
+          <img src="/logo-avicenna.png" alt="Avicenna" className="h-8 w-8 object-contain" />
           <span className="hidden sm:inline">Avicenna Voting</span>
         </Link>
 
