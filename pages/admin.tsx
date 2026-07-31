@@ -405,7 +405,7 @@ function PieChartCard({ title, data, total }: { title: string; data: { label: st
     responsive: true,
     maintainAspectRatio: false as const,
     plugins: {
-      legend: { position: "bottom" as const, labels: { padding: 20, usePointStyle: true, pointStyle: "circle" } },
+      legend: { display: false },
       datalabels: {
         display: true,
         color: "#fff",
@@ -425,7 +425,7 @@ function PieChartCard({ title, data, total }: { title: string; data: { label: st
     <div className="glass p-6">
       <h3 className="mb-4 text-sm font-semibold text-gray-700">{title}</h3>
       <div className="flex items-center gap-6">
-        <div className="relative h-28 w-28">
+        <div className="relative h-32 w-32">
           <Pie data={chartData} options={chartOptions} />
           <div className="absolute inset-0 flex items-center justify-center">
             <span className="text-center text-xs text-gray-500">Total: {sum}</span>
