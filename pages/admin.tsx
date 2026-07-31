@@ -1,5 +1,10 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Pie } from "react-chartjs-2";
+import ChartDataLabels from "chartjs-plugin-datalabels";
+
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 type QuickCount = {
   totalToken: number;
@@ -385,29 +390,47 @@ function QCcard({ title, data, total }: { title: string; data: { label: string; 
 }
 
 function PieChartCard({ title, data, total }: { title: string; data: { label: string; value: number; color: string }[]; total: number }) {
-  const values = data.map((d) => d.value);
-  const sum = values.reduce((a, b) => a + b, 0);
-  const nonzero = data.filter((d) => d.value > 0);
+  const chartData = {
+    labels: data.map((d) => d.label),
+    datasets: [{
+      data: data.map((d) => d.value),
+      backgroundColor: data.map((d) => d.color),
+      borderWidth: 0,
+      borderRadius: 6,
+      cutout: "55%",
+    }],
+  };
+
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false as const,
+    plugins: {
+      legend: { position: "bottom" as const, labels: { padding: 20, usePointStyle: true, pointStyle: "circle" } },
+      datalabels: {
+        display: true,
+        color: "#fff",
+        font: { weight: "bold" as const, size: 12 },
+        formatter: (val: number, ctx: any) => {
+          const total = ctx.chart.data.datasets[0].data.reduce((a: number, b: number) => a + b, 0);
+          if (total === 0) return null;
+          return `${val}`;
+        },
+      },
+    },
+  };
+
+  const sum = data.reduce((a, b) => a + b.value, 0);
 
   return (
     <div className="glass p-6">
       <h3 className="mb-4 text-sm font-semibold text-gray-700">{title}</h3>
       <div className="flex items-center gap-6">
-        {/* pie chart */}
         <div className="relative h-28 w-28">
-          <svg viewBox="0 0 100 100" className="h-28 w-28">
-            {sum === 0 ? (
-              <circle cx="50" cy="50" r="35" fill="#f3f4f6" />
-            ) : (
-              <PieSlices nonzero={nonzero} sum={sum} />
-            )}
-          </svg>
+          <Pie data={chartData} options={chartOptions} />
           <div className="absolute inset-0 flex items-center justify-center">
             <span className="text-center text-xs text-gray-500">Total: {sum}</span>
           </div>
         </div>
-
-        {/* legend */}
         <div className="flex flex-col gap-2">
           {data.map((d) => {
             const pct = sum ? Math.round((d.value / sum) * 100) : 0;
@@ -430,30 +453,6 @@ function PeopleIcon() { return <svg className="h-5 w-5" fill="none" viewBox="0 0
 function CheckIcon() { return <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>; }
 function ClockIcon() { return <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>; }
 function ChartIcon() { return <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg>; }
-
-function PieSlices({ nonzero, sum }: { nonzero: { label: string; value: number; color: string }[]; sum: number }) {
-  let offset = 0;
-  const slices = nonzero.map((d) => {
-    const pct = (d.value / sum) * 100;
-    const circumference = 2 * Math.PI * 35;
-    const dash = (pct / 100) * circumference;
-    const rotatedOffset = (offset / 100) * circumference;
-    offset += pct;
-    return (
-      <circle
-        key={d.label}
-        cx="50" cy="50" r="35"
-        fill="none"
-        stroke={d.color}
-        strokeWidth="70"
-        strokeDasharray={`${dash} ${circumference - dash}`}
-        transform={`rotate(${rotatedOffset * (180 / Math.PI)}, 50, 50)`}
-        style={{ transition: "all 0.5s ease", strokeLinecap: "butt" }}
-      />
-    );
-  });
-  return <>{slices}</>;
-}
 
 function HexLogo() {
   return <img src="/logo-avicenna.png" alt="Avicenna" className="h-[40rem] w-[40rem] object-contain" />;
