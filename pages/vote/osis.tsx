@@ -7,7 +7,7 @@ const OSIS_CANDIDATES = [
     visi: "",
     img: "/candidates/osis_a.jpg",
   },
-  { id: "osis_b", name: "Muhammad Jeeva Khalfani Akbar & Jane Doe", visi: "Visi B", img: "/candidates/osis_b.jpg" },
+  { id: "osis_b", name: "Muhammad Jeeva Khalfani Akbar & Jane Doe", visi: "", img: "/candidates/osis_b.jpg" },
 ];
 
 export default function VoteOSIS() {
