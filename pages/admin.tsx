@@ -273,14 +273,15 @@ export default function Admin() {
                 <StatCard title="Partisipasi" value={`${stats.totalVoted}/${stats.totalToken}`} color="purple" icon={<ChartIcon />} />
               </div>
 
+              {/* local quick count - pie charts */}
               <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
-                <QCcard title="Quick Count OSIS" data={[
-                  { label: "Calon A", value: stats.osis.a, color: "bg-blue-500" },
-                  { label: "Calon B", value: stats.osis.b, color: "bg-yellow-500" },
+                <PieChartCard title="Quick Count OSIS" data={[
+                  { label: "Calon A", value: stats.osis.a, color: "#0051a8" },
+                  { label: "Calon B", value: stats.osis.b, color: "#f5a623" },
                 ]} total={stats.totalVoted} />
-                <QCcard title="Quick Count MPK" data={[
-                  { label: "Calon A", value: stats.mpk.a, color: "bg-blue-500" },
-                  { label: "Calon B", value: stats.mpk.b, color: "bg-yellow-500" },
+                <PieChartCard title="Quick Count MPK" data={[
+                  { label: "Calon A", value: stats.mpk.a, color: "#0051a8" },
+                  { label: "Calon B", value: stats.mpk.b, color: "#f5a623" },
                 ]} total={stats.totalVoted} />
               </div>
 
