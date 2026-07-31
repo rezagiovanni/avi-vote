@@ -433,10 +433,11 @@ function ChartIcon() { return <svg className="h-5 w-5" fill="none" viewBox="0 0 
 
 function PieSlices({ nonzero, sum }: { nonzero: { label: string; value: number; color: string }[]; sum: number }) {
   let offset = 0;
-  return nonzero.map((d) => {
+  const slices = nonzero.map((d) => {
     const pct = (d.value / sum) * 100;
-    const dash = (pct / 100) * 2 * Math.PI * 35;
-    const rotatedOffset = offset * (2 * Math.PI * 35) / 100;
+    const circumference = 2 * Math.PI * 35;
+    const dash = (pct / 100) * circumference;
+    const rotatedOffset = (offset / 100) * circumference;
     offset += pct;
     return (
       <circle
@@ -445,12 +446,13 @@ function PieSlices({ nonzero, sum }: { nonzero: { label: string; value: number; 
         fill="none"
         stroke={d.color}
         strokeWidth="70"
-        strokeDasharray={`${dash} ${2 * Math.PI * 35 - dash}`}
-        transform={`rotate(${rotatedOffset * 180 / (Math.PI * 35)}, 50, 50)`}
-        style={{ transition: "all 0.5s ease" }}
+        strokeDasharray={`${dash} ${circumference - dash}`}
+        transform={`rotate(${rotatedOffset * (180 / Math.PI)}, 50, 50)`}
+        style={{ transition: "all 0.5s ease", strokeLinecap: "butt" }}
       />
     );
   });
+  return <>{slices}</>;
 }
 
 function HexLogo() {
