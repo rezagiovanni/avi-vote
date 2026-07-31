@@ -7,7 +7,7 @@ const OSIS_CANDIDATES = [
     visi: "Mewujudkan sekolah yang inklusif, kolaboratif, dan berkelanjutan melalui kepemimpinan yang berbasis nilai Pancasila",
     img: "/candidates/osis_a.jpg",
   },
-  { id: "osis_b", name: "Calon OSIS B", visi: "Visi B" },
+  { id: "osis_b", name: "Muhammad Jeeva Khalfani Akbar & Jane Doe", visi: "Visi B", img: "/candidates/osis_b.jpg" },
 ];
 
 export default function VoteOSIS() {
