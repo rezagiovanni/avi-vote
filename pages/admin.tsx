@@ -399,27 +399,7 @@ function PieChartCard({ title, data, total }: { title: string; data: { label: st
             {sum === 0 ? (
               <circle cx="50" cy="50" r="35" fill="#f3f4f6" />
             ) : (
-              (() => {
-                let offset = 0;
-                return nonzero.map((d, i) => {
-                  const pct = (d.value / sum) * 100;
-                  const dash = (pct / 100) * 2 * Math.PI * 35;
-                  const rotatedOffset = offset * (2 * Math.PI * 35) / 100;
-                  offset += pct;
-                  return (
-                    <circle
-                      key={d.label}
-                      cx="50" cy="50" r="35"
-                      fill="none"
-                      stroke={d.color}
-                      strokeWidth="70"
-                      strokeDasharray={`${dash} ${2 * Math.PI * 35 - dash}`}
-                      transform={`rotate(${rotatedOffset * 180 / (Math.PI * 35)}, 50, 50)`}
-                      style={{ transition: "all 0.5s ease" }}
-                    />;
-                  );
-                });
-              })())
+              <PieSlices nonzero={nonzero} sum={sum} />
             )}
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
@@ -450,6 +430,28 @@ function PeopleIcon() { return <svg className="h-5 w-5" fill="none" viewBox="0 0
 function CheckIcon() { return <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>; }
 function ClockIcon() { return <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>; }
 function ChartIcon() { return <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg>; }
+
+function PieSlices({ nonzero, sum }: { nonzero: { label: string; value: number; color: string }[]; sum: number }) {
+  let offset = 0;
+  return nonzero.map((d) => {
+    const pct = (d.value / sum) * 100;
+    const dash = (pct / 100) * 2 * Math.PI * 35;
+    const rotatedOffset = offset * (2 * Math.PI * 35) / 100;
+    offset += pct;
+    return (
+      <circle
+        key={d.label}
+        cx="50" cy="50" r="35"
+        fill="none"
+        stroke={d.color}
+        strokeWidth="70"
+        strokeDasharray={`${dash} ${2 * Math.PI * 35 - dash}`}
+        transform={`rotate(${rotatedOffset * 180 / (Math.PI * 35)}, 50, 50)`}
+        style={{ transition: "all 0.5s ease" }}
+      />
+    );
+  });
+}
 
 function HexLogo() {
   return <img src="/logo-avicenna.png" alt="Avicenna" className="h-[40rem] w-[40rem] object-contain" />;
