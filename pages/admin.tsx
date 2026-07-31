@@ -186,15 +186,15 @@ export default function Admin() {
                 <StatCard title="Partisipasi" value={`${globalStats.totalVoted}/${globalStats.totalToken}`} color="purple" icon={<ChartIcon />} />
               </div>
 
-              {/* global quick count */}
+              {/* global quick count - pie charts */}
               <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
-                <QCcard title="Quick Count OSIS (Global)" data={[
-                  { label: "Calon A", value: globalStats.osis.a, color: "bg-blue-500" },
-                  { label: "Calon B", value: globalStats.osis.b, color: "bg-yellow-500" },
+                <PieChartCard title="Quick Count OSIS (Global)" data={[
+                  { label: "Calon A", value: globalStats.osis.a, color: "#0051a8" },
+                  { label: "Calon B", value: globalStats.osis.b, color: "#f5a623" },
                 ]} total={globalStats.totalVoted} />
-                <QCcard title="Quick Count MPK (Global)" data={[
-                  { label: "Calon A", value: globalStats.mpk.a, color: "bg-blue-500" },
-                  { label: "Calon B", value: globalStats.mpk.b, color: "bg-yellow-500" },
+                <PieChartCard title="Quick Count MPK (Global)" data={[
+                  { label: "Calon A", value: globalStats.mpk.a, color: "#0051a8" },
+                  { label: "Calon B", value: globalStats.mpk.b, color: "#f5a623" },
                 ]} total={globalStats.totalVoted} />
               </div>
 
@@ -379,6 +379,67 @@ function QCcard({ title, data, total }: { title: string; data: { label: string; 
             </div>
           );
         })}
+      </div>
+    </div>
+  );
+}
+
+function PieChartCard({ title, data, total }: { title: string; data: { label: string; value: number; color: string }[]; total: number }) {
+  const values = data.map((d) => d.value);
+  const sum = values.reduce((a, b) => a + b, 0);
+  const nonzero = data.filter((d) => d.value > 0);
+
+  return (
+    <div className="glass p-6">
+      <h3 className="mb-4 text-sm font-semibold text-gray-700">{title}</h3>
+      <div className="flex items-center gap-6">
+        {/* pie chart */}
+        <div className="relative h-28 w-28">
+          <svg viewBox="0 0 100 100" className="h-28 w-28">
+            {sum === 0 ? (
+              <circle cx="50" cy="50" r="35" fill="#f3f4f6" />
+            ) : (
+              (() => {
+                let offset = 0;
+                return nonzero.map((d, i) => {
+                  const pct = (d.value / sum) * 100;
+                  const dash = (pct / 100) * 2 * Math.PI * 35;
+                  const rotatedOffset = offset * (2 * Math.PI * 35) / 100;
+                  offset += pct;
+                  return (
+                    <circle
+                      key={d.label}
+                      cx="50" cy="50" r="35"
+                      fill="none"
+                      stroke={d.color}
+                      strokeWidth="70"
+                      strokeDasharray={`${dash} ${2 * Math.PI * 35 - dash}`}
+                      transform={`rotate(${rotatedOffset * 180 / (Math.PI * 35)}, 50, 50)`}
+                      style={{ transition: "all 0.5s ease" }}
+                    />;
+                  );
+                });
+              })())
+            )}
+          </svg>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-center text-xs text-gray-500">Total: {sum}</span>
+          </div>
+        </div>
+
+        {/* legend */}
+        <div className="flex flex-col gap-2">
+          {data.map((d) => {
+            const pct = sum ? Math.round((d.value / sum) * 100) : 0;
+            return (
+              <div key={d.label} className="flex items-center gap-2">
+                <span className="h-3 w-3 rounded-full" style={{ backgroundColor: d.color }} />
+                <span className="text-sm font-medium text-gray-700">{d.label}</span>
+                <span className="text-sm text-gray-500">{d.value} ({pct}%)</span>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
