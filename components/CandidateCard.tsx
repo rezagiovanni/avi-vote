@@ -2,6 +2,7 @@ type Candidate = {
   id: string;
   name: string;
   visi: string;
+  img?: string;
 };
 
 type Props = {
@@ -35,12 +36,16 @@ export default function CandidateCard({ label, candidates, onSubmit }: Props) {
               {/* accent bar */}
               <div className={`absolute left-0 top-0 h-1.5 w-full ${idx === 0 ? "bg-blue-500" : "bg-yellow-500"}`} />
 
-              {/* avatar */}
-              <div className={`relative mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br text-xl font-bold shadow-sm ${
-                idx === 0 ? "from-blue-100 to-blue-200 text-blue-700" : "from-yellow-100 to-yellow-200 text-yellow-700"
-              }`}>
-                {c.name.charAt(0)}
-              </div>
+              {/* photo or avatar */}
+              {c.img ? (
+                <img src={c.img} alt={c.name} className="relative mb-4 h-24 w-24 rounded-full object-cover shadow-sm ring-2 ring-white" />
+              ) : (
+                <div className={`relative mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br text-xl font-bold shadow-sm ${
+                  idx === 0 ? "from-blue-100 to-blue-200 text-blue-700" : "from-yellow-100 to-yellow-200 text-yellow-700"
+                }`}>
+                  {c.name.charAt(0)}
+                </div>
+              )}
 
               <div className="relative">
                 <h3 className="text-lg font-semibold text-gray-800">{c.name}</h3>

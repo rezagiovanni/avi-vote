@@ -1,7 +1,12 @@
 import CandidateCard from "@/components/CandidateCard";
 
 const OSIS_CANDIDATES = [
-  { id: "osis_a", name: "Calon OSIS A", visi: "Visi A" },
+  {
+    id: "osis_a",
+    name: "Adriana Salsabila Pradana & Kireina Sarazi Filiajaya",
+    visi: "Mewujudkan sekolah yang inklusif, kolaboratif, dan berkelanjutan melalui kepemimpinan yang berbasis nilai Pancasila",
+    img: "/candidates/osis_a.jpg",
+  },
   { id: "osis_b", name: "Calon OSIS B", visi: "Visi B" },
 ];
 
