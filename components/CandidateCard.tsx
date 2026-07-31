@@ -39,7 +39,7 @@ export default function CandidateCard({ label, candidates, onSubmit }: Props) {
               {/* photo or avatar */}
               {c.img ? (
                 <div className="relative mb-6 w-full">
-                  <img src={c.img} alt={c.name} className="w-full rounded-xl object-contain" style={{ maxHeight: "200px" }} />
+                  <img src={c.img} alt={c.name} className="w-full rounded-xl object-contain" style={{ maxHeight: "200px", objectPosition: "center top" }} />
                 </div>
               ) : (
                 <div className={`relative mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br text-xl font-bold shadow-sm ${

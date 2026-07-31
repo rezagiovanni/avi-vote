@@ -4,7 +4,7 @@ const OSIS_CANDIDATES = [
   {
     id: "osis_a",
     name: "Adriana Salsabila Pradana & Kireina Sarazi Filiajaya",
-    visi: "Mewujudkan sekolah yang inklusif, kolaboratif, dan berkelanjutan melalui kepemimpinan yang berbasis nilai Pancasila",
+    visi: "",
     img: "/candidates/osis_a.jpg",
   },
   { id: "osis_b", name: "Muhammad Jeeva Khalfani Akbar & Jane Doe", visi: "Visi B", img: "/candidates/osis_b.jpg" },
