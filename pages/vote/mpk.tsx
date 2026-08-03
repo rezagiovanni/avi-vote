@@ -2,8 +2,8 @@ import { useRouter } from "next/router";
 import CandidateCard from "@/components/CandidateCard";
 
 const MPK_CANDIDATES = [
-  { id: "mpk_a", name: "Retno Ayu Anindita D. & Gandi Arka Riyadi", visi: "" },
-  { id: "mpk_b", name: "Calon MPK B", visi: "" },
+  { id: "mpk_a", name: "Retno Ayu Anindita D. & Gandi Arka Riyadi", visi: "", img: "/candidates/mpk_a.jpg" },
+  { id: "mpk_b", name: "Calon MPK B", visi: "", img: "/candidates/mpk_b.jpg" },
 ];
 
 export default function VoteMPK() {
