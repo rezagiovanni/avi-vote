@@ -1,6 +1,13 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
+const CANDIDATE_NAMES = {
+  osis_a: "Adriana Salsabila Pradana & Kireina Sarazi Filiajaya",
+  osis_b: "Muhammad Jeeva Khalfani Akbar & Alodie Belva Syakira Novianto",
+  mpk_a: "Retno Ayu Anindita D. & Gandi Arka Riyadi",
+  mpk_b: "Calon MPK B",
+} as const;
+
 function getCookie(name: string) {
   const v = document.cookie.split("; ").find((c) => c.startsWith(name + "="));
   return v ? decodeURIComponent(v.split("=")[1]) : "";
@@ -10,8 +17,6 @@ export default function Confirm() {
   const router = useRouter();
   const [osisRaw, setOsisRaw] = useState("");
   const [mpkRaw, setMpkRaw] = useState("");
-  const [osis, setOsis] = useState("");
-  const [mpk, setMpk] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [notif, setNotif] = useState<{ type: "error" | "success"; msg: string } | null>(null);
 
@@ -24,9 +29,10 @@ export default function Confirm() {
     }
     setOsisRaw(o);
     setMpkRaw(m);
-    setOsis(o === "osis_a" ? "Calon OSIS A" : "Calon OSIS B");
-    setMpk(m === "mpk_a" ? "Calon MPK A" : "Calon MPK B");
   }, []);
+
+  const osis = osisRaw ? CANDIDATE_NAMES[osisRaw as keyof typeof CANDIDATE_NAMES] ?? osisRaw : "-";
+  const mpk = mpkRaw ? CANDIDATE_NAMES[mpkRaw as keyof typeof CANDIDATE_NAMES] ?? mpkRaw : "-";
 
   async function submit() {
     setSubmitting(true);
